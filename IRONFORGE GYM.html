@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<!-- saved from url=(0179)file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IRONFORGE GYM</title>
+  <link href="./IRONFORGE GYM_files/css2" rel="stylesheet">
+  <style>
+    :root {
+      --black: #080808;
+      --charcoal: #111111;
+      --steel: #1c1c1c;
+      --ember: #FF3D00;
+      --gold: #D4A017;
+      --ash: #888888;
+      --white: #F5F0E8;
+      --offwhite: #CFCABB;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* CUSTOM CURSOR */
+    .cursor {
+      width: 12px; height: 12px;
+      background: var(--ember);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.1s ease;
+      mix-blend-mode: difference;
+    }
+    .cursor-trail {
+      width: 36px; height: 36px;
+      border: 1px solid var(--ember);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.4;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 4rem;
+      background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+      transition: background 0.4s;
+    }
+    nav.scrolled { background: rgba(8,8,8,0.97); border-bottom: 1px solid #1f1f1f; }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.15em;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--ember); }
+
+    .nav-links { display: flex; gap: 3rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--offwhite);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--ember);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      padding: 0.6rem 1.8rem;
+      background: var(--ember);
+      color: var(--white);
+      border: none;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.2s;
+      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    }
+    .nav-cta:hover { background: #FF5722; transform: scale(1.03); }
+
+    /* HAMBURGER */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: none; }
+    .hamburger span { display: block; width: 26px; height: 2px; background: var(--white); transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* MOBILE MENU */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(8,8,8,0.98);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .mobile-menu a:hover { color: var(--ember); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 70% 50%, rgba(255,61,0,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 80%, rgba(212,160,23,0.06) 0%, transparent 50%),
+        #080808;
+    }
+
+    /* Animated grid */
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,61,0,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,61,0,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridShift 20s linear infinite;
+    }
+    @keyframes gridShift { from { transform: translate(0,0); } to { transform: translate(60px,60px); } }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 4rem;
+      max-width: 900px;
+    }
+
+    .hero-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--ember);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5rem, 14vw, 13rem);
+      line-height: 0.88;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s forwards;
+    }
+    .hero-title .outline {
+      -webkit-text-stroke: 1px var(--white);
+      color: transparent;
+    }
+    .hero-title .red { color: var(--ember); }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--ash);
+      line-height: 1.7;
+      max-width: 480px;
+      margin-top: 1.8rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      align-items: center;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.8s forwards;
+    }
+
+    .btn-primary {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 1rem 3rem;
+      background: var(--ember);
+      color: var(--white);
+      border: none;
+      text-decoration: none;
+      display: inline-block;
+      clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+      transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+      cursor: none;
+    }
+    .btn-primary:hover { background: #FF5722; transform: translateY(-2px); box-shadow: 0 10px 40px rgba(255,61,0,0.35); }
+
+    .btn-ghost {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--offwhite);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: color 0.3s;
+      cursor: none;
+    }
+    .btn-ghost:hover { color: var(--white); }
+    .btn-ghost .arrow { font-size: 1.2rem; transition: transform 0.3s; }
+    .btn-ghost:hover .arrow { transform: translateX(5px); }
+
+    .hero-stats {
+      position: absolute;
+      right: 4rem; bottom: 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      z-index: 2;
+      opacity: 0;
+      animation: fadeUp 0.8s 1s forwards;
+    }
+    .stat-item { text-align: right; }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      color: var(--white);
+      line-height: 1;
+    }
+    .stat-num span { color: var(--ember); }
+    .stat-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ash);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: 2;
+    }
+    .scroll-indicator span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ash);
+    }
+    .scroll-line {
+      width: 1px; height: 50px;
+      background: linear-gradient(to bottom, var(--ember), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse { 0%,100%{opacity:0.3;} 50%{opacity:1;} }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* TICKER */
+    .ticker {
+      background: var(--ember);
+      padding: 0.7rem 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .ticker-track {
+      display: flex;
+      gap: 4rem;
+      width: max-content;
+      animation: tickerScroll 20s linear infinite;
+    }
+    .ticker-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+      color: var(--white);
+    }
+    .ticker-item .dot { margin-right: 4rem; opacity: 0.5; }
+    @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* SECTIONS */
+    section { padding: 7rem 4rem; }
+
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--ember);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 0.95;
+      color: var(--white);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ABOUT */
+    #about { background: var(--charcoal); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .about-text p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--ash);
+      margin-bottom: 1.5rem;
+    }
+    .about-text p strong { color: var(--white); font-weight: 500; }
+
+    .about-visual {
+      position: relative;
+      height: 500px;
+    }
+    .about-card {
+      position: absolute;
+      background: var(--steel);
+      border: 1px solid #2a2a2a;
+      padding: 2rem;
+    }
+    .about-card.main {
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+    }
+    .about-card.main .big-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 7rem;
+      color: rgba(255,61,0,0.12);
+      line-height: 1;
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+    .about-card.badge {
+      bottom: -1.5rem; right: -1.5rem;
+      width: 180px;
+      background: var(--ember);
+      text-align: center;
+      z-index: 2;
+      padding: 1.5rem;
+    }
+    .badge-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      line-height: 1;
+      color: var(--white);
+    }
+    .badge-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* PROGRAMS */
+    #programs { background: var(--black); }
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid #1f1f1f;
+    }
+    .program-card {
+      padding: 3rem 2.5rem;
+      border-right: 1px solid #1f1f1f;
+      border-bottom: 1px solid #1f1f1f;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s;
+      cursor: none;
+    }
+    .program-card:nth-child(3n) { border-right: none; }
+    .program-card:nth-last-child(-n+3) { border-bottom: none; }
+    .program-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,61,0,0.08), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .program-card:hover { background: var(--charcoal); }
+    .program-card:hover::before { opacity: 1; }
+
+    .program-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .program-num {
+      position: absolute;
+      top: 1.5rem; right: 2rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem;
+      color: rgba(255,255,255,0.04);
+      line-height: 1;
+    }
+    .program-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+    .program-desc {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--ash);
+    }
+    .program-tag {
+      display: inline-block;
+      margin-top: 1.5rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ember);
+      border: 1px solid rgba(255,61,0,0.3);
+      padding: 0.3rem 0.8rem;
+    }
+
+    /* TRAINERS */
+    #trainers { background: var(--steel); }
+    .trainers-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+    .trainer-card {
+      position: relative;
+      overflow: hidden;
+      cursor: none;
+    }
+    .trainer-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--charcoal);
+      position: relative;
+      overflow: hidden;
+    }
+    .trainer-photo-inner {
+      position: absolute; inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5rem;
+      color: rgba(255,255,255,0.08);
+      transition: transform 0.5s ease;
+    }
+    .trainer-card:hover .trainer-photo-inner { transform: scale(1.05); }
+    .trainer-photo-inner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.8) 0%, transparent 60%);
+    }
+
+    /* Colored accent bar on trainer card */
+    .trainer-accent {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .trainer-info {
+      padding: 1.5rem 0 0.5rem;
+    }
+    .trainer-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+    }
+    .trainer-spec {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ember);
+      margin-top: 0.25rem;
+    }
+
+    /* PRICING */
+    #pricing { background: var(--black); }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: #1a1a1a;
+    }
+    .pricing-card {
+      background: var(--charcoal);
+      padding: 3.5rem 3rem;
+      position: relative;
+      transition: background 0.3s;
+    }
+    .pricing-card.featured {
+      background: var(--black);
+      border-top: 3px solid var(--ember);
+    }
+    .pricing-card.featured::before {
+      content: 'MOST POPULAR';
+      position: absolute;
+      top: -1px; right: 2rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      background: var(--ember);
+      color: var(--white);
+      padding: 0.3rem 0.8rem;
+    }
+    .plan-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .plan-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--white);
+      margin: 1.5rem 0;
+    }
+    .plan-price sup { font-size: 2rem; vertical-align: top; margin-top: 1rem; color: var(--ember); }
+    .plan-price sub { font-size: 1.2rem; color: var(--ash); }
+    .plan-features {
+      list-style: none;
+      margin-bottom: 2.5rem;
+    }
+    .plan-features li {
+      font-size: 0.9rem;
+      color: var(--ash);
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #2a2a2a;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .plan-features li::before { content: '—'; color: var(--ember); }
+    .plan-features li.active { color: var(--white); }
+
+    /* SCHEDULE */
+    #schedule { background: var(--charcoal); }
+    .schedule-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    .schedule-table th {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ember);
+      padding: 1.2rem 1.5rem;
+      text-align: left;
+      border-bottom: 1px solid #2a2a2a;
+    }
+    .schedule-table td {
+      padding: 1.2rem 1.5rem;
+      font-size: 0.9rem;
+      color: var(--ash);
+      border-bottom: 1px solid #1a1a1a;
+      transition: color 0.2s;
+    }
+    .schedule-table tr:hover td { color: var(--white); background: rgba(255,61,0,0.03); }
+    .schedule-table td:first-child { color: var(--white); font-weight: 500; }
+    .class-badge {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.7rem;
+      border-radius: 0;
+    }
+    .badge-hi { background: rgba(255,61,0,0.15); color: var(--ember); }
+    .badge-mid { background: rgba(212,160,23,0.15); color: var(--gold); }
+    .badge-low { background: rgba(100,200,100,0.15); color: #6cc06c; }
+
+    /* TESTIMONIALS */
+    #testimonials { background: var(--black); overflow: hidden; }
+    .testimonials-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+    }
+    .testimonials-track {
+      display: flex;
+      gap: 2rem;
+      transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .testimonial-card {
+      min-width: 400px;
+      background: var(--charcoal);
+      padding: 2.5rem;
+      border-left: 3px solid var(--ember);
+      flex-shrink: 0;
+    }
+    .quote {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--offwhite);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+    .quote-mark {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem;
+      color: var(--ember);
+      line-height: 0.5;
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .reviewer-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .reviewer-detail {
+      font-size: 0.8rem;
+      color: var(--ash);
+      margin-top: 0.2rem;
+    }
+    .stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 1rem; }
+
+    .slider-controls { display: flex; gap: 1rem; }
+    .slider-btn {
+      width: 48px; height: 48px;
+      border: 1px solid #2a2a2a;
+      background: transparent;
+      color: var(--white);
+      font-size: 1.2rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s;
+      cursor: none;
+    }
+    .slider-btn:hover { background: var(--ember); border-color: var(--ember); }
+
+    /* CONTACT */
+    #contact { background: var(--steel); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .contact-info { }
+    .contact-detail {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      align-items: flex-start;
+    }
+    .contact-icon {
+      font-size: 1.4rem;
+      color: var(--ember);
+      margin-top: 0.2rem;
+      flex-shrink: 0;
+    }
+    .contact-text h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ash);
+      margin-bottom: 0.3rem;
+    }
+    .contact-text p { font-size: 0.95rem; color: var(--white); line-height: 1.6; }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .form-field { display: flex; flex-direction: column; gap: 0.5rem; }
+    .form-field label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ash);
+    }
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      background: var(--charcoal);
+      border: 1px solid #2a2a2a;
+      color: var(--white);
+      padding: 0.9rem 1.2rem;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.3s;
+      cursor: none;
+    }
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus { border-color: var(--ember); }
+    .form-field textarea { resize: vertical; min-height: 120px; }
+    .form-field select option { background: var(--charcoal); }
+
+    /* FOOTER */
+    footer {
+      background: #050505;
+      padding: 4rem;
+      border-top: 1px solid #1a1a1a;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 4rem;
+    }
+    .footer-brand .nav-logo { display: block; margin-bottom: 1rem; }
+    .footer-brand p { font-size: 0.9rem; color: var(--ash); line-height: 1.7; max-width: 260px; }
+    .footer-col h5 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ember);
+      margin-bottom: 1.5rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 0.75rem; }
+    .footer-col a {
+      font-size: 0.9rem;
+      color: var(--ash);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 2rem;
+      border-top: 1px solid #1a1a1a;
+    }
+    .footer-copy { font-size: 0.8rem; color: var(--ash); }
+    .social-links { display: flex; gap: 1rem; }
+    .social-link {
+      width: 40px; height: 40px;
+      border: 1px solid #2a2a2a;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--ash);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.3s;
+    }
+    .social-link:hover { border-color: var(--ember); color: var(--ember); }
+
+    /* REVEAL ANIMATION */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    /* NOTIFICATION */
+    .notification {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      background: var(--charcoal);
+      border-left: 3px solid var(--ember);
+      padding: 1.2rem 2rem;
+      z-index: 9000;
+      transform: translateX(200%);
+      transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+      max-width: 320px;
+    }
+    .notification.show { transform: translateX(0); }
+    .notification h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ember);
+      margin-bottom: 0.3rem;
+    }
+    .notification p { font-size: 0.85rem; color: var(--ash); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      nav { padding: 1.5rem 2rem; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 5rem 2rem; }
+      .hero-content { padding: 0 2rem; }
+      .hero-stats { right: 2rem; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .programs-grid { grid-template-columns: 1fr 1fr; }
+      .program-card:nth-child(3n) { border-right: 1px solid #1f1f1f; }
+      .program-card:nth-child(2n) { border-right: none; }
+      .trainers-grid { grid-template-columns: 1fr 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 640px) {
+      .hero-stats { display: none; }
+      .programs-grid { grid-template-columns: 1fr; }
+      .program-card:nth-child(n) { border-right: none; }
+      .trainers-grid { grid-template-columns: 1fr 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .testimonial-card { min-width: 300px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor" style="transform: translate(1238px, 550px);"></div>
+  <div class="cursor-trail" id="cursorTrail" style="transform: translate(1258.2px, 484.349px); opacity: 0.4;"></div>
+
+  <!-- NOTIFICATION -->
+  <div class="notification" id="notification">
+    <h4>Message Sent!</h4>
+    <p>We'll get back to you within 24 hours.</p>
+  </div>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#about" onclick="closeMobile()">About</a>
+    <a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#programs" onclick="closeMobile()">Programs</a>
+    <a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#trainers" onclick="closeMobile()">Trainers</a>
+    <a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#pricing" onclick="closeMobile()">Pricing</a>
+    <a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#schedule" onclick="closeMobile()">Schedule</a>
+    <a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#contact" onclick="closeMobile()">Contact</a>
+  </div>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#" class="nav-logo">IRON<span>FORGE</span></a>
+    <ul class="nav-links">
+      <li><a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#about">About</a></li>
+      <li><a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#programs">Programs</a></li>
+      <li><a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#trainers">Trainers</a></li>
+      <li><a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#pricing">Pricing</a></li>
+      <li><a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#schedule">Schedule</a></li>
+      <li><a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#contact">Contact</a></li>
+    </ul>
+    <a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#contact" class="nav-cta">Join Now</a>
+    <div class="hamburger" id="hamburger" onclick="toggleMobile()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-label">Est. 2015 · Premium Fitness</div>
+      <h1 class="hero-title">
+        FORGE<br>
+        <span class="outline">YOUR</span><br>
+        <span class="red">LIMITS</span>
+      </h1>
+      <p class="hero-sub">Elite training. Relentless results. A gym built for those who don't believe in excuses — only excellence.</p>
+      <div class="hero-actions">
+        <a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#contact" class="btn-primary">Start Today</a>
+        <a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#programs" class="btn-ghost">Explore Programs <span class="arrow">→</span></a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num" data-target="3200">0<span>+</span></div>
+        <div class="stat-label">Active Members</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-target="24">0<span>/7</span></div>
+        <div class="stat-label">Hours Open</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-target="18">0<span>+</span></div>
+        <div class="stat-label">Expert Trainers</div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-track" id="ticker">
+      <div class="ticker-item">Strength Training <span class="dot">◆</span></div>
+      <div class="ticker-item">HIIT Classes <span class="dot">◆</span></div>
+      <div class="ticker-item">CrossFit <span class="dot">◆</span></div>
+      <div class="ticker-item">Yoga &amp; Recovery <span class="dot">◆</span></div>
+      <div class="ticker-item">Boxing <span class="dot">◆</span></div>
+      <div class="ticker-item">Nutrition Plans <span class="dot">◆</span></div>
+      <div class="ticker-item">Personal Training <span class="dot">◆</span></div>
+      <div class="ticker-item">Cardio Zone <span class="dot">◆</span></div>
+      <!-- duplicated for infinite loop -->
+      <div class="ticker-item">Strength Training <span class="dot">◆</span></div>
+      <div class="ticker-item">HIIT Classes <span class="dot">◆</span></div>
+      <div class="ticker-item">CrossFit <span class="dot">◆</span></div>
+      <div class="ticker-item">Yoga &amp; Recovery <span class="dot">◆</span></div>
+      <div class="ticker-item">Boxing <span class="dot">◆</span></div>
+      <div class="ticker-item">Nutrition Plans <span class="dot">◆</span></div>
+      <div class="ticker-item">Personal Training <span class="dot">◆</span></div>
+      <div class="ticker-item">Cardio Zone <span class="dot">◆</span></div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <div class="section-label">Who We Are</div>
+        <h2 class="section-title">MORE THAN A GYM. A MOVEMENT.</h2>
+        <p>At <strong>IRONFORGE</strong>, we believe every rep, every drop of sweat, every early morning is a vote for who you're becoming. We built this space for people who take their fitness seriously.</p>
+        <p>From our <strong>state-of-the-art equipment</strong> to our world-class trainers, every detail of IRONFORGE is engineered to push you further than you thought possible.</p>
+        <p>Whether you're stepping into a gym for the first time or you're a seasoned athlete chasing new records — you belong here.</p>
+        <a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#programs" class="btn-primary" style="margin-top:1rem; display:inline-block;">View Programs</a>
+      </div>
+      <div class="about-visual reveal reveal-delay-2">
+        <div class="about-card main">
+          <div class="big-text">IRON<br>FORGE</div>
+        </div>
+        <div class="about-card badge">
+          <div class="badge-num">10</div>
+          <div class="badge-label">Years of Excellence</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section id="programs">
+    <div class="reveal">
+      <div class="section-label">What We Offer</div>
+      <h2 class="section-title">OUR PROGRAMS</h2>
+    </div>
+    <div class="programs-grid">
+      <div class="program-card reveal reveal-delay-1">
+        <div class="program-num">01</div>
+        <div class="program-icon">🏋️</div>
+        <div class="program-name">Powerlifting</div>
+        <p class="program-desc">Squat, bench, deadlift. Master the big three with expert coaching and periodized programming.</p>
+        <span class="program-tag">Advanced</span>
+      </div>
+      <div class="program-card reveal reveal-delay-2">
+        <div class="program-num">02</div>
+        <div class="program-icon">🔥</div>
+        <div class="program-name">HIIT Burn</div>
+        <p class="program-desc">High-intensity interval training that torches fat and builds endurance in 45-minute sessions.</p>
+        <span class="program-tag">All Levels</span>
+      </div>
+      <div class="program-card reveal reveal-delay-3">
+        <div class="program-num">03</div>
+        <div class="program-icon">🥊</div>
+        <div class="program-name">Boxing</div>
+        <p class="program-desc">Conditioning, technique, and aggression. Learn to move like a fighter and hit harder.</p>
+        <span class="program-tag">Beginner Friendly</span>
+      </div>
+      <div class="program-card reveal reveal-delay-1">
+        <div class="program-num">04</div>
+        <div class="program-icon">🤸</div>
+        <div class="program-name">CrossFit</div>
+        <p class="program-desc">Functional movements at high intensity. Build strength, speed, and mental resilience.</p>
+        <span class="program-tag">Intermediate</span>
+      </div>
+      <div class="program-card reveal reveal-delay-2">
+        <div class="program-num">05</div>
+        <div class="program-icon">🧘</div>
+        <div class="program-name">Recovery &amp; Yoga</div>
+        <p class="program-desc">Mobility work, guided breathwork, and restorative poses designed for hard-training athletes.</p>
+        <span class="program-tag">All Levels</span>
+      </div>
+      <div class="program-card reveal reveal-delay-3">
+        <div class="program-num">06</div>
+        <div class="program-icon">🎯</div>
+        <div class="program-name">1-on-1 Personal Training</div>
+        <p class="program-desc">Custom programming, focused coaching, and accountability tailored entirely to your goals.</p>
+        <span class="program-tag">Premium</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAINERS -->
+  <section id="trainers">
+    <div class="reveal" style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:3rem; flex-wrap:wrap; gap:1rem;">
+      <div>
+        <div class="section-label">The Crew</div>
+        <h2 class="section-title" style="margin-bottom:0">MEET THE TRAINERS</h2>
+      </div>
+      <a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#contact" class="btn-ghost">Work With a Trainer <span class="arrow">→</span></a>
+    </div>
+    <div class="trainers-grid">
+      <div class="trainer-card reveal reveal-delay-1">
+        <div class="trainer-photo">
+          <div class="trainer-photo-inner" style="background: linear-gradient(135deg,#1a1a1a,#111);">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:6rem;color:rgba(255,61,0,0.15);font-family:&#39;Bebas Neue&#39;,sans-serif;">MR</div>
+          </div>
+          <div class="trainer-accent" style="background: var(--ember);"></div>
+        </div>
+        <div class="trainer-info">
+          <div class="trainer-name">Marcus Reid</div>
+          <div class="trainer-spec">Powerlifting · Strength</div>
+        </div>
+      </div>
+      <div class="trainer-card reveal reveal-delay-2">
+        <div class="trainer-photo">
+          <div class="trainer-photo-inner" style="background: linear-gradient(135deg,#181818,#0f0f0f);">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:6rem;color:rgba(212,160,23,0.15);font-family:&#39;Bebas Neue&#39;,sans-serif;">JK</div>
+          </div>
+          <div class="trainer-accent" style="background: var(--gold);"></div>
+        </div>
+        <div class="trainer-info">
+          <div class="trainer-name">Jana Kowalski</div>
+          <div class="trainer-spec">CrossFit · HIIT</div>
+        </div>
+      </div>
+      <div class="trainer-card reveal reveal-delay-3">
+        <div class="trainer-photo">
+          <div class="trainer-photo-inner" style="background: linear-gradient(135deg,#161616,#111);">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:6rem;color:rgba(100,200,100,0.12);font-family:&#39;Bebas Neue&#39;,sans-serif;">DT</div>
+          </div>
+          <div class="trainer-accent" style="background: #6cc06c;"></div>
+        </div>
+        <div class="trainer-info">
+          <div class="trainer-name">Dani Torres</div>
+          <div class="trainer-spec">Boxing · Conditioning</div>
+        </div>
+      </div>
+      <div class="trainer-card reveal reveal-delay-4">
+        <div class="trainer-photo">
+          <div class="trainer-photo-inner" style="background: linear-gradient(135deg,#181818,#111);">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:6rem;color:rgba(100,160,255,0.12);font-family:&#39;Bebas Neue&#39;,sans-serif;">AV</div>
+          </div>
+          <div class="trainer-accent" style="background: #5b9bd5;"></div>
+        </div>
+        <div class="trainer-info">
+          <div class="trainer-name">Aryan Verma</div>
+          <div class="trainer-spec">Yoga · Mobility</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="reveal" style="text-align:center; max-width:600px; margin: 0 auto 4rem;">
+      <div class="section-label">Investment in Yourself</div>
+      <h2 class="section-title">SIMPLE PRICING</h2>
+      <p style="color:var(--ash); font-size:1rem; line-height:1.7;">No hidden fees. No gimmicks. Just results-driven membership plans built for every level of commitment.</p>
+    </div>
+    <div class="pricing-grid reveal">
+      <div class="pricing-card">
+        <div class="plan-name">Starter</div>
+        <p style="font-size:0.85rem; color:var(--ash);">Perfect for beginners</p>
+        <div class="plan-price"><sup>₹</sup>1,999<sub>/mo</sub></div>
+        <ul class="plan-features">
+          <li class="active">Gym Floor Access</li>
+          <li class="active">Cardio Zone</li>
+          <li class="active">2 Group Classes / Week</li>
+          <li>Personal Training</li>
+          <li>Nutrition Consultation</li>
+          <li>Sauna &amp; Recovery Zone</li>
+        </ul>
+        <a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#contact" class="btn-primary" style="width:100%; text-align:center; display:block;">Get Started</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="plan-name">Elite</div>
+        <p style="font-size:0.85rem; color:var(--ash);">For serious athletes</p>
+        <div class="plan-price"><sup>₹</sup>3,499<sub>/mo</sub></div>
+        <ul class="plan-features">
+          <li class="active">Gym Floor Access</li>
+          <li class="active">Cardio Zone</li>
+          <li class="active">Unlimited Group Classes</li>
+          <li class="active">2 PT Sessions / Month</li>
+          <li class="active">Nutrition Consultation</li>
+          <li>Sauna &amp; Recovery Zone</li>
+        </ul>
+        <a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#contact" class="btn-primary" style="width:100%; text-align:center; display:block;">Get Started</a>
+      </div>
+      <div class="pricing-card">
+        <div class="plan-name">Champion</div>
+        <p style="font-size:0.85rem; color:var(--ash);">Total access, total results</p>
+        <div class="plan-price"><sup>₹</sup>5,999<sub>/mo</sub></div>
+        <ul class="plan-features">
+          <li class="active">Gym Floor Access</li>
+          <li class="active">Cardio Zone</li>
+          <li class="active">Unlimited Group Classes</li>
+          <li class="active">8 PT Sessions / Month</li>
+          <li class="active">Nutrition Consultation</li>
+          <li class="active">Sauna &amp; Recovery Zone</li>
+        </ul>
+        <a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#contact" class="btn-primary" style="width:100%; text-align:center; display:block;">Get Started</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCHEDULE -->
+  <section id="schedule">
+    <div class="reveal">
+      <div class="section-label">Weekly Timetable</div>
+      <h2 class="section-title">CLASS SCHEDULE</h2>
+    </div>
+    <div class="reveal" style="overflow-x:auto;">
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th>Class</th>
+            <th>Trainer</th>
+            <th>Day</th>
+            <th>Time</th>
+            <th>Duration</th>
+            <th>Intensity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>HIIT Burn</td>
+            <td>Jana Kowalski</td>
+            <td>Mon / Wed / Fri</td>
+            <td>6:00 AM</td>
+            <td>45 min</td>
+            <td><span class="class-badge badge-hi">High</span></td>
+          </tr>
+          <tr>
+            <td>Powerlifting Fundamentals</td>
+            <td>Marcus Reid</td>
+            <td>Tue / Thu</td>
+            <td>7:30 AM</td>
+            <td>60 min</td>
+            <td><span class="class-badge badge-hi">High</span></td>
+          </tr>
+          <tr>
+            <td>Boxing Circuit</td>
+            <td>Dani Torres</td>
+            <td>Mon / Wed</td>
+            <td>6:00 PM</td>
+            <td>50 min</td>
+            <td><span class="class-badge badge-mid">Medium</span></td>
+          </tr>
+          <tr>
+            <td>CrossFit WOD</td>
+            <td>Jana Kowalski</td>
+            <td>Sat / Sun</td>
+            <td>8:00 AM</td>
+            <td>60 min</td>
+            <td><span class="class-badge badge-hi">High</span></td>
+          </tr>
+          <tr>
+            <td>Yoga &amp; Mobility</td>
+            <td>Aryan Verma</td>
+            <td>Tue / Thu / Sat</td>
+            <td>7:00 PM</td>
+            <td>60 min</td>
+            <td><span class="class-badge badge-low">Low</span></td>
+          </tr>
+          <tr>
+            <td>Open Strength Floor</td>
+            <td>All Trainers</td>
+            <td>Daily</td>
+            <td>5:00 AM – 11:00 PM</td>
+            <td>Open</td>
+            <td><span class="class-badge badge-mid">Self-Paced</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="testimonials-header reveal">
+      <div>
+        <div class="section-label">Real Results</div>
+        <h2 class="section-title" style="margin-bottom:0">WHAT MEMBERS SAY</h2>
+      </div>
+      <div class="slider-controls">
+        <button class="slider-btn" id="prevBtn">←</button>
+        <button class="slider-btn" id="nextBtn">→</button>
+      </div>
+    </div>
+    <div style="overflow:hidden;" class="reveal">
+      <div class="testimonials-track" id="testimonialTrack">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <span class="quote-mark">"</span>
+          <p class="quote">IRONFORGE completely transformed how I train. Marcus built a program around my weaknesses and in 6 months I added 40kg to my deadlift. Unreal.</p>
+          <div class="reviewer-name">Rajan Mehta</div>
+          <div class="reviewer-detail">Powerlifting Member · 14 months</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <span class="quote-mark">"</span>
+          <p class="quote">I've been to gyms all over the city. Nothing comes close to the energy and community here. The HIIT classes with Jana are absolutely brutal — in the best way.</p>
+          <div class="reviewer-name">Priya Sharma</div>
+          <div class="reviewer-detail">Elite Member · 8 months</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <span class="quote-mark">"</span>
+          <p class="quote">Lost 18kg in 5 months with the Champion plan. The nutrition consults made everything click. I'm never going back to training without a real system.</p>
+          <div class="reviewer-name">Vikram Anand</div>
+          <div class="reviewer-detail">Champion Member · 6 months</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <span class="quote-mark">"</span>
+          <p class="quote">As a complete beginner, I was terrified. Aryan's yoga class and the staff's warmth made me feel welcome from day one. Now I'm doing CrossFit on weekends!</p>
+          <div class="reviewer-name">Simran Kaur</div>
+          <div class="reviewer-detail">Starter Member · 10 months</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <span class="quote-mark">"</span>
+          <p class="quote">Dani's boxing program is not just a workout — it's therapy. I leave every session with zero stress and maximum confidence. This gym is a different breed.</p>
+          <div class="reviewer-name">Kabir Nair</div>
+          <div class="reviewer-detail">Elite Member · 1 year</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-grid">
+      <div>
+        <div class="section-label reveal">Get In Touch</div>
+        <h2 class="section-title reveal">START YOUR<br>JOURNEY</h2>
+        <div class="contact-detail reveal reveal-delay-1">
+          <div class="contact-icon">📍</div>
+          <div class="contact-text">
+            <h4>Location</h4>
+            <p>Plot 42, Industrial Area Phase 2<br>Chandigarh, 160002</p>
+          </div>
+        </div>
+        <div class="contact-detail reveal reveal-delay-2">
+          <div class="contact-icon">📞</div>
+          <div class="contact-text">
+            <h4>Phone</h4>
+            <p>+91 98765 43210</p>
+          </div>
+        </div>
+        <div class="contact-detail reveal reveal-delay-3">
+          <div class="contact-icon">🕐</div>
+          <div class="contact-text">
+            <h4>Hours</h4>
+            <p>Monday – Sunday<br>5:00 AM – 11:00 PM</p>
+          </div>
+        </div>
+        <div class="contact-detail reveal reveal-delay-4">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-text">
+            <h4>Email</h4>
+            <p>hello@ironforge.gym</p>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form reveal reveal-delay-2">
+        <div class="form-row">
+          <div class="form-field">
+            <label>First Name</label>
+            <input type="text" placeholder="Rajan" id="fname">
+          </div>
+          <div class="form-field">
+            <label>Last Name</label>
+            <input type="text" placeholder="Mehta" id="lname">
+          </div>
+        </div>
+        <div class="form-field">
+          <label>Email Address</label>
+          <input type="email" placeholder="you@example.com" id="email">
+        </div>
+        <div class="form-field">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="+91 98765 43210" id="phone">
+        </div>
+        <div class="form-field">
+          <label>Interested In</label>
+          <select id="interest">
+            <option value="">Select a program…</option>
+            <option>Powerlifting</option>
+            <option>HIIT Burn</option>
+            <option>Boxing</option>
+            <option>CrossFit</option>
+            <option>Yoga &amp; Recovery</option>
+            <option>Personal Training</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Message</label>
+          <textarea placeholder="Tell us about your goals…" id="message"></textarea>
+        </div>
+        <button class="btn-primary" onclick="submitForm()" style="width:100%; font-size:1rem; padding:1.1rem;">Send Message</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#" class="nav-logo">IRON<span style="color:var(--ember)">FORGE</span></a>
+        <p>Built for those who refuse to settle. Train harder. Recover smarter. Live stronger.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Programs</h5>
+        <ul>
+          <li><a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#programs">Powerlifting</a></li>
+          <li><a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#programs">HIIT Burn</a></li>
+          <li><a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#programs">Boxing</a></li>
+          <li><a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#programs">CrossFit</a></li>
+          <li><a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#programs">Yoga</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#about">About</a></li>
+          <li><a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#trainers">Trainers</a></li>
+          <li><a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#pricing">Pricing</a></li>
+          <li><a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#schedule">Schedule</a></li>
+          <li><a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Membership</h5>
+        <ul>
+          <li><a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#pricing">Starter Plan</a></li>
+          <li><a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#pricing">Elite Plan</a></li>
+          <li><a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#pricing">Champion Plan</a></li>
+          <li><a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#contact">Free Trial Day</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 IRONFORGE GYM. All rights reserved.</p>
+      <div class="social-links">
+        <a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#" class="social-link">in</a>
+        <a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#" class="social-link">ig</a>
+        <a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#" class="social-link">tw</a>
+        <a href="file:///C:/Users/acer/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/7B05A4BAFD9DE4A47F32D596BFBDD7586C55EB39/transfers/2026-18/gym-website.html#" class="social-link">yt</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // CURSOR
+    const cursor = document.getElementById('cursor');
+    const trail = document.getElementById('cursorTrail');
+    let mx = 0, my = 0, tx = 0, ty = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.transform = `translate(${mx - 6}px, ${my - 6}px)`;
+    });
+    function animateTrail() {
+      tx += (mx - tx) * 0.18;
+      ty += (my - ty) * 0.18;
+      trail.style.transform = `translate(${tx - 18}px, ${ty - 18}px)`;
+      requestAnimationFrame(animateTrail);
+    }
+    animateTrail();
+    document.querySelectorAll('a, button, .program-card, .trainer-card, .slider-btn, input, select, textarea').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursor.style.transform += ' scale(2)'; trail.style.opacity = '0.7'; });
+      el.addEventListener('mouseleave', () => { trail.style.opacity = '0.4'; });
+    });
+
+    // NAV SCROLL
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // MOBILE MENU
+    function toggleMobile() {
+      document.getElementById('hamburger').classList.toggle('open');
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+    function closeMobile() {
+      document.getElementById('hamburger').classList.remove('open');
+      document.getElementById('mobileMenu').classList.remove('open');
+    }
+
+    // COUNTER ANIMATION
+    function animateCounters() {
+      document.querySelectorAll('[data-target]').forEach(el => {
+        const target = +el.dataset.target;
+        const suffix = el.querySelector('span')?.outerHTML || '';
+        let current = 0;
+        const step = target / 60;
+        const interval = setInterval(() => {
+          current = Math.min(current + step, target);
+          el.innerHTML = Math.floor(current) + suffix;
+          if (current >= target) clearInterval(interval);
+        }, 20);
+      });
+    }
+
+    // SCROLL REVEAL
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          // Trigger counters when hero stats visible
+          if (e.target.parentElement && e.target.parentElement.id === 'hero') animateCounters();
+        }
+      });
+    }, { threshold: 0.15 });
+    reveals.forEach(r => observer.observe(r));
+
+    // Hero stats observer
+    const heroStats = document.querySelector('.hero-stats');
+    if (heroStats) {
+      const statsObs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) { animateCounters(); statsObs.disconnect(); }
+      }, { threshold: 0.5 });
+      statsObs.observe(heroStats);
+    }
+
+    // TESTIMONIAL SLIDER
+    let slideIndex = 0;
+    const track = document.getElementById('testimonialTrack');
+    function getSlideWidth() { return track.children[0].offsetWidth + 32; }
+    function updateSlider() {
+      track.style.transform = `translateX(-${slideIndex * getSlideWidth()}px)`;
+    }
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      slideIndex = Math.min(slideIndex + 1, track.children.length - 2);
+      updateSlider();
+    });
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      slideIndex = Math.max(slideIndex - 1, 0);
+      updateSlider();
+    });
+
+    // CONTACT FORM
+    function submitForm() {
+      const f = document.getElementById('fname').value;
+      const e = document.getElementById('email').value;
+      if (!f || !e) { alert('Please fill in your name and email.'); return; }
+      const notif = document.getElementById('notification');
+      notif.classList.add('show');
+      setTimeout(() => notif.classList.remove('show'), 4000);
+      // Reset
+      ['fname','lname','email','phone','message'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('interest').value = '';
+    }
+  </script>
+
+
+</body></html>
